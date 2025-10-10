@@ -21,6 +21,11 @@
                                 <i class="bi bi-people"></i> Users
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.profile.edit') }}">
+                                <i class="bi bi-person-circle"></i> Profile
+                            </a>
+                        </li>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard') }}">

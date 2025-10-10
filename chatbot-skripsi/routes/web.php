@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ChatController;
@@ -37,6 +38,12 @@ Route::middleware(['auth', 'log.activity'])->group(function () {
     // Admin Routes (Admin tidak perlu complete profile)
     Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+
+        // Admin Profile Management
+        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile/account', [AdminProfileController::class, 'updateAccount'])->name('profile.update-account');
+        Route::put('/profile/personal', [AdminProfileController::class, 'updatePersonal'])->name('profile.update-personal');
+        Route::post('/profile/password', [AdminProfileController::class, 'updatePassword'])->name('profile.update-password');
 
         // User Management
         Route::resource('users', UserController::class);
