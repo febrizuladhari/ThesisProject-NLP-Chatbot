@@ -231,25 +231,29 @@
                     </div>
                 </div>
 
-                <div class="card shadow-sm border-danger">
-                    <div class="card-header bg-danger text-white">
-                        <h5 class="mb-0">
-                            <i class="bi bi-exclamation-triangle"></i> Zona Berbahaya
-                        </h5>
+                @if($user->role->user)
+                    <div class="card shadow-sm border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-exclamation-triangle"></i> Zona Berbahaya
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-3">Hapus user ini secara permanen. Tindakan ini tidak dapat
+                                dibatalkan.</p>
+                            <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger w-100"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus user ini? Data ini tidak dapat dipulihkan.')">
+                                    <i class="bi bi-trash"></i> Hapus User
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="text-muted small mb-3">Hapus user ini secara permanen. Tindakan ini tidak dapat
-                            dibatalkan.</p>
-                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger w-100"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus user ini? Data ini tidak dapat dipulihkan.')">
-                                <i class="bi bi-trash"></i> Hapus User
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                @else
+                @endif
+
             </div>
         </div>
     </div>

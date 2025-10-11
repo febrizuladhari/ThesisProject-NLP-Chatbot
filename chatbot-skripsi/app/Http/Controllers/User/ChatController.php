@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Support\Facades\Http;
+use App\Helpers\LogHelper;
 
 class ChatController extends Controller
 {
@@ -32,6 +33,8 @@ class ChatController extends Controller
     //         'user_id' => auth()->id(),
     //         'title' => 'Chat ' . now()->format('Y-m-d H:i'),
     //     ]);
+
+    //     LogHelper::chatCreatedLog($chat->id);
 
     //     return redirect()->route('chat.show', $chat);
     // }
@@ -71,6 +74,8 @@ class ChatController extends Controller
     //         'sender' => 'bot',
     //         'qa_message' => $botResponse,
     //     ]);
+
+    //     LogHelper::chatCreatedLog($chat->id);
 
     //     return response()->json([
     //         'success' => true,

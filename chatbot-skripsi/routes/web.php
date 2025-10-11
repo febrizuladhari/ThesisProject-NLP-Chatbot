@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ChatController;
@@ -51,6 +52,15 @@ Route::middleware(['auth', 'log.activity'])->group(function () {
         // Edit Personal Data User
         Route::get('/users/{user}/personal/edit', [UserController::class, 'editPersonal'])->name('users.edit-personal');
         Route::put('/users/{user}/personal/update', [UserController::class, 'updatePersonal'])->name('users.update-personal');
+
+        // Log Management Routes
+        Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
+        Route::get('/logs/{log}', [LogController::class, 'show'])->name('logs.show');
+        Route::delete('/logs/{log}', [LogController::class, 'destroy'])->name('logs.destroy');
+        Route::post('/logs/clear-all', [LogController::class, 'clearAll'])->name('logs.clear-all');
+        Route::post('/logs/clear-old', [LogController::class, 'clearOld'])->name('logs.clear-old');
+        Route::post('/logs/bulk-destroy', [\App\Http\Controllers\Admin\LogController::class, 'bulkDestroy'])->name('logs.bulk-destroy');
+
     });
 
     // User Routes (Hanya untuk user dengan completed profile)

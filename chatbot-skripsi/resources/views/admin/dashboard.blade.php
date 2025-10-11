@@ -53,7 +53,7 @@
             <i class="bi bi-activity text-danger"></i> System Activity Overview
         </h5>
         <div class="row g-4 mb-4">
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
                 <div class="card stat-card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
                 <div class="card stat-card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
                 <div class="card stat-card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -110,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
                 <div class="card stat-card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -129,6 +129,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-xl-4 col-md-6">
+                <div class="card stat-card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="text-muted mb-1 fw-semibold">Activity Logs</p>
+                                <h2 class="mb-0 fw-bold">{{ $totalLogs }}</h2>
+                                <small class="text-muted">
+                                    <i class="bi bi-clock-history"></i> Total activities
+                                </small>
+                            </div>
+                            <div class="stat-icon bg-dark bg-opacity-10 text-dark">
+                                <i class="bi bi-activity"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row g-4">
@@ -199,7 +219,7 @@
                                             </td>
                                             <td class="pe-4">
                                                 <a href="{{ route('admin.users.edit', $user) }}"
-                                                    class="btn btn-sm btn-light" title="Edit">
+                                                    class="btn btn-sm btn-warning" title="Edit">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
                                             </td>
@@ -280,51 +300,99 @@
             </div>
         </div>
 
-        <!-- Activity Overview -->
-        {{-- <div class="row mt-4">
+        <!-- Recent Activity Logs Section - Tambahkan setelah Activity Overview -->
+        <div class="row mt-4">
             <div class="col-12">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-white border-0 py-3">
-                        <h5 class="mb-0 fw-bold">
-                            <i class="bi bi-activity text-danger"></i> System Activity Overview
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="bi bi-clock-history text-success"></i> Recent Activity Logs (10 Terbaru)
+                            </h5>
+                            <a href="{{ route('admin.logs.index') }}" class="btn btn-sm btn-outline-primary">
+                                Lihat Semua <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="p-3">
-                                    <i class="bi bi-people text-primary" style="font-size: 2rem;"></i>
-                                    <h3 class="mt-2 mb-0">{{ $totalUsers }}</h3>
-                                    <small class="text-muted">Total Users</small>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="p-3">
-                                    <i class="bi bi-chat-square-dots text-success" style="font-size: 2rem;"></i>
-                                    <h3 class="mt-2 mb-0">{{ $totalChats }}</h3>
-                                    <small class="text-muted">Total Chats</small>
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="p-3">
-                                    <i class="bi bi-chat-text text-info" style="font-size: 2rem;"></i>
-                                    <h3 class="mt-2 mb-0">{{ $totalMessages }}</h3>
-                                    <small class="text-muted">Total Messages</small>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="p-3">
-                                    <i class="bi bi-graph-up-arrow text-warning" style="font-size: 2rem;"></i>
-                                    <h3 class="mt-2 mb-0">
-                                        {{ $totalChats > 0 ? number_format($totalMessages / $totalChats, 1) : 0 }}</h3>
-                                    <small class="text-muted">Avg Messages/Chat</small>
-                                </div>
-                            </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">#</th>
+                                        <th>User</th>
+                                        <th>Activity</th>
+                                        <th>IP Address</th>
+                                        <th class="pe-4">Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($recentLogs as $log)
+                                        <tr>
+                                            <td class="ps-4">{{ $loop->iteration }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle bg-primary bg-opacity-10 text-primary me-2"
+                                                        style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7rem;">
+                                                        {{ strtoupper(substr($log->user->username ?? 'U', 0, 2)) }}
+                                                    </div>
+                                                    <span
+                                                        class="fw-semibold">{{ $log->user->username ?? 'Unknown' }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge
+                                        @if (str_contains($log->activity, 'login')) bg-success-subtle text-success
+                                        @elseif(str_contains($log->activity, 'logout')) bg-secondary-subtle text-secondary
+                                        @elseif(str_contains($log->activity, 'chat')) bg-info-subtle text-info
+                                        @elseif(str_contains($log->activity, 'profile')) bg-warning-subtle text-warning
+                                        @else bg-primary-subtle text-primary @endif border
+                                        @if (str_contains($log->activity, 'login')) border-success-subtle
+                                        @elseif(str_contains($log->activity, 'logout')) border-secondary-subtle
+                                        @elseif(str_contains($log->activity, 'chat')) border-info-subtle
+                                        @elseif(str_contains($log->activity, 'profile')) border-warning-subtle
+                                        @else border-primary-subtle @endif">
+                                                    <i
+                                                        class="bi
+                                            @if (str_contains($log->activity, 'login')) bi-box-arrow-in-right
+                                            @elseif(str_contains($log->activity, 'logout')) bi-box-arrow-right
+                                            @elseif(str_contains($log->activity, 'chat')) bi-chat-dots
+                                            @elseif(str_contains($log->activity, 'profile')) bi-person-circle
+                                            @else bi-circle-fill @endif">
+                                                    </i>
+                                                    {{ Str::limit($log->activity, 30) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <code class="text-muted small">{{ $log->ip_address }}</code>
+                                            </td>
+                                            <td class="pe-4">
+                                                <small class="text-muted">
+                                                    <i class="bi bi-clock"></i>
+                                                    {{ $log->created_at->format('d M Y, H:i') }}
+                                                    <br>
+                                                    <span
+                                                        class="text-muted small">({{ $log->created_at->diffForHumans() }})</span>
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5">
+                                                <i class="bi bi-inbox text-muted" style="font-size: 2rem;"></i>
+                                                <p class="text-muted mt-2 mb-0">Belum ada activity log</p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
+
     </div>
 @endsection
 
@@ -346,9 +414,16 @@
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').textContent =
-                now.toLocaleTimeString('id-ID', { hour12: false });
+                now.toLocaleTimeString('id-ID', {
+                    hour12: false
+                });
             document.getElementById('date').textContent =
-                now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                now.toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
         }
         setInterval(updateClock, 1000);
         updateClock();

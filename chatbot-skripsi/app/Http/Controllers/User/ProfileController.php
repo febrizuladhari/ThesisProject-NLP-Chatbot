@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Personal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\LogHelper;
 
 class ProfileController extends Controller
 {
@@ -74,6 +75,8 @@ class ProfileController extends Controller
 
         Auth::user()->personal->update($request->all());
 
+        LogHelper::profileUpdateLog();
+
         return redirect()->route('profile.edit')->with('success', 'Profil berhasil diupdate!');
     }
 
@@ -96,6 +99,8 @@ class ProfileController extends Controller
         }
 
         $user->update(['password' => Hash::make($request->password)]);
+
+        LogHelper::passwordChangeLog();
 
         return redirect()->route('profile.edit')->with('success', 'Password berhasil diubah!');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\LogHelper;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,8 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
+            LogHelper::loginLog($user->id);
+
             if ($user->isAdmin()) {
                 return redirect()->intended('/admin/dashboard');
             }
@@ -45,6 +48,8 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        LogHelper::logoutLog(Auth::id());
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

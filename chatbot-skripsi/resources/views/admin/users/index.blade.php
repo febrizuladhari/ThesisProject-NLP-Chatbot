@@ -57,14 +57,14 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus"
                                                 onclick="return confirm('Yakin ingin menghapus user ini?')">
                                                 <i class="bi bi-trash"></i>
                                             </button>
