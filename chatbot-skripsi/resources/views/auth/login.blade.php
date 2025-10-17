@@ -67,6 +67,12 @@
                                     Lupa Password?
                                 </a>
                             </div>
+
+                            <div class="text-center mt-2">
+                                <a href="{{ route('landing') }}" class="text-decoration-none">
+                                    Kembali ke Halaman Utama
+                                </a>
+                            </div>
                         </form>
                     </div>
                 </div>

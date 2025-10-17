@@ -32,7 +32,7 @@ class LogController extends Controller
             $query->where('activity', 'like', '%' . $request->search . '%');
         }
 
-        $logs = $query->paginate(20);
+        $logs = $query->orderBy('created_at', 'desc')->paginate(20);
 
         // Get all users for filter dropdown
         $users = User::where('role_id', 2)->get();
