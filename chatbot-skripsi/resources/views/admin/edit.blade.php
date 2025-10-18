@@ -184,6 +184,9 @@
                                     <input type="password"
                                         class="form-control @error('current_password') is-invalid @enderror"
                                         id="current_password" name="current_password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="current_password" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -194,6 +197,9 @@
                                     <span class="input-group-text"><i class="bi bi-key"></i></span>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                                 <small class="text-muted d-block mt-1">Minimal 8 karakter</small>
                             </div>
@@ -205,6 +211,9 @@
                                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                                     <input type="password" class="form-control" id="password_confirmation"
                                         name="password_confirmation" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 

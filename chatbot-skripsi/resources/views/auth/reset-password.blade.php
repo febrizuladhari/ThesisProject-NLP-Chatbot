@@ -41,6 +41,9 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control" id="password" name="password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -50,6 +53,9 @@
                                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                                     <input type="password" class="form-control" id="password_confirmation"
                                         name="password_confirmation" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 

@@ -46,6 +46,9 @@
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 

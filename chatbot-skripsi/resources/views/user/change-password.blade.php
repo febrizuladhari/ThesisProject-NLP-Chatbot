@@ -52,6 +52,9 @@
                                     <input type="password"
                                         class="form-control @error('current_password') is-invalid @enderror"
                                         id="current_password" name="current_password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="current_password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                                 <small class="text-muted d-block mt-2">Masukkan password Anda saat ini untuk
                                     verifikasi</small>
@@ -66,6 +69,9 @@
                                     <span class="input-group-text"><i class="bi bi-key"></i></span>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                                 <small class="text-muted d-block mt-2">Minimal 8 karakter. Gunakan kombinasi huruf besar,
                                     huruf kecil, angka, dan simbol untuk keamanan maksimal.</small>
@@ -79,6 +85,9 @@
                                     <input type="password"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
                                         id="password_confirmation" name="password_confirmation" required>
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                                 <small class="text-muted d-block mt-2">Ketikkan ulang password baru yang sama</small>
                             </div>

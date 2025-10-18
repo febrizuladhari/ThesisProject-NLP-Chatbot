@@ -74,6 +74,9 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control" id="password" name="password">
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                                 <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah password</small>
                             </div>
@@ -82,8 +85,10 @@
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                    <input type="password" class="form-control" id="password_confirmation"
-                                        name="password_confirmation">
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation" title="Tampilkan password">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
                                 </div>
                             </div>
 

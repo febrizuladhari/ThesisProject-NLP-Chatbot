@@ -74,7 +74,6 @@ Route::middleware(['auth', 'log.activity'])->group(function () {
         Route::get('/profile/password', [ProfileController::class, 'changePassword'])->name('change-password');
         Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
-
         // Chat
         Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
         Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
