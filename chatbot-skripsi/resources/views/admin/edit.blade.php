@@ -125,6 +125,9 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <small class="text-muted d-block mt-1">
+                                        <i class="bi bi-info-circle"></i> Format: 08xx atau 62xx (11-13 digit)
+                                    </small>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -137,6 +140,9 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <small class="text-muted d-block mt-1">
+                                        <i class="bi bi-info-circle"></i> Usia minimal 12 tahun
+                                    </small>
                                 </div>
                             </div>
 
@@ -219,7 +225,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <small class="text-muted d-block mt-1">Minimal 8 karakter</small>
+                                <small class="text-muted d-block mt-1"><i class="bi bi-info-circle"></i> Minimal 8 karakter</small>
                             </div>
 
                             <div class="mb-3">

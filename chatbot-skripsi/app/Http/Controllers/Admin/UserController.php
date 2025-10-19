@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Personal;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\MinimumAge;
+use App\Rules\IndonesianPhoneNumber;
 
 class UserController extends Controller
 {
@@ -37,6 +39,15 @@ class UserController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'username.unique' => 'Username sudah digunakan.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
         $userRole = Role::where('role', 'user')->first();
@@ -76,6 +87,12 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required|string|max:255|unique:users,username,'.$user->id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'username.unique' => 'Username sudah digunakan.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
         ]);
 
         $user->update([
@@ -86,6 +103,9 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $request->validate([
                 'password' => 'string|min:8|confirmed',
+            ], [
+                'password.min' => 'Password minimal 8 karakter.',
+                'password.confirmed' => 'Konfirmasi password tidak cocok.',
             ]);
             $user->update(['password' => Hash::make($request->password)]);
         }
@@ -104,11 +124,17 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'birth_date' => 'nullable|date',
-            'gender' => 'nullable|in:male,female,other',
+            'phone' => ['nullable', new IndonesianPhoneNumber],
+            'birth_date' => ['nullable', 'date', 'before_or_equal:today', new MinimumAge(12)],
+            'gender' => 'nullable|in:male,female',
             'address' => 'nullable|string',
             'medical_history' => 'nullable|string',
+        ], [
+            'first_name.required' => 'Nama depan wajib diisi.',
+            'last_name.required' => 'Nama belakang wajib diisi.',
+            'birth_date.date' => 'Format tanggal lahir tidak valid.',
+            'birth_date.before_or_equal' => 'Tanggal lahir tidak boleh lebih dari hari ini.',
+            'gender.in' => 'Jenis kelamin yang dipilih tidak valid.',
         ]);
 
         if ($user->personal) {
@@ -125,7 +151,6 @@ class UserController extends Controller
                 'medical_history' => $request->medical_history,
             ]);
 
-            // Tandai profile sebagai lengkap jika baru dibuat
             $user->update(['is_profile_completed' => true]);
         }
 

@@ -45,7 +45,7 @@
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <small class="text-muted">Minimal 8 karakter</small>
+                        <small class="text-muted"><i class="bi bi-info-circle"></i> Minimal 8 karakter</small>
                     </div>
 
                     <div class="mb-3">

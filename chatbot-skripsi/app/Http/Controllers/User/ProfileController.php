@@ -8,6 +8,8 @@ use App\Models\Personal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\LogHelper;
+use App\Rules\MinimumAge;
+use App\Rules\IndonesianPhoneNumber;
 
 class ProfileController extends Controller
 {
@@ -32,11 +34,21 @@ class ProfileController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'birth_date' => 'nullable|date',
+            'phone' => ['nullable, new IndonesianPhoneNumber'],
+            'birth_date' => ['nullable', 'date', 'before_or_equal:today', new MinimumAge(12)],
             'gender' => 'nullable|in:male,female',
             'address' => 'nullable|string',
             'medical_history' => 'nullable|string',
+        ], [
+            'first_name.required' => 'Nama depan wajib diisi.',
+            'first_name.max' => 'Nama depan maksimal 255 karakter.',
+            'last_name.required' => 'Nama belakang wajib diisi.',
+            'last_name.max' => 'Nama belakang maksimal 255 karakter.',
+            'birth_date.date' => 'Format tanggal lahir tidak valid.',
+            'birth_date.before_or_equal' => 'Tanggal lahir tidak boleh lebih dari hari ini.',
+            'gender.in' => 'Jenis kelamin yang dipilih tidak valid.',
+            'address.max' => 'Alamat maksimal 500 karakter.',
+            'medical_history.max' => 'Riwayat medis maksimal 1000 karakter.',
         ]);
 
         Personal::create([
@@ -66,11 +78,21 @@ class ProfileController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'birth_date' => 'nullable|date',
+            'phone' => ['nullable', new IndonesianPhoneNumber],
+            'birth_date' => ['nullable', 'date', 'before_or_equal:today', new MinimumAge(12)],
             'gender' => 'nullable|in:male,female',
             'address' => 'nullable|string',
             'medical_history' => 'nullable|string',
+        ], [
+            'first_name.required' => 'Nama depan wajib diisi.',
+            'first_name.max' => 'Nama depan maksimal 255 karakter.',
+            'last_name.required' => 'Nama belakang wajib diisi.',
+            'last_name.max' => 'Nama belakang maksimal 255 karakter.',
+            'birth_date.date' => 'Format tanggal lahir tidak valid.',
+            'birth_date.before_or_equal' => 'Tanggal lahir tidak boleh lebih dari hari ini.',
+            'gender.in' => 'Jenis kelamin yang dipilih tidak valid.',
+            'address.max' => 'Alamat maksimal 500 karakter.',
+            'medical_history.max' => 'Riwayat medis maksimal 1000 karakter.',
         ]);
 
         Auth::user()->personal->update($request->all());

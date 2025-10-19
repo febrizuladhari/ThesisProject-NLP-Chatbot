@@ -71,7 +71,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <small class="text-muted d-block mt-2">Minimal 8 karakter. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol untuk keamanan maksimal.</small>
+                                <small class="text-muted d-block mt-2"><i class="bi bi-info-circle"></i> Minimal 8 karakter. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol untuk keamanan maksimal.</small>
                             </div>
 
                             <div class="mb-3">
