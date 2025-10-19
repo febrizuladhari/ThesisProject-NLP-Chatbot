@@ -14,21 +14,10 @@
                             <p class="text-muted">Silakan login untuk melanjutkan</p>
                         </div>
 
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                        <!-- Validation Errors Alert -->
+                        <x-validation-errors />
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger" role="alert">
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            </div>
-                        @endif
-
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('login') }}" id="LoginForm">
                             @csrf
 
                             <div class="mb-3">
@@ -37,6 +26,9 @@
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                         id="email" name="email" value="{{ old('email') }}" required autofocus>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -46,9 +38,13 @@
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" required>
-                                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
+                                    <button class="btn btn-outline-secondary toggle-password" type="button"
+                                        data-target="password" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

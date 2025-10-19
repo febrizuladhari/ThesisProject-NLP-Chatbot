@@ -23,15 +23,8 @@
             </div>
         @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <!-- Validation Errors Alert -->
+        <x-validation-errors />
 
         <div class="row">
             <div class="col-md-8">
@@ -53,6 +46,9 @@
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     <input type="text" class="form-control" id="username" name="username"
                                         value="{{ old('username', $user->username) }}" required>
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Username unik untuk login</small>
                             </div>
@@ -63,6 +59,9 @@
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control" id="email" name="email"
                                         value="{{ old('email', $user->email) }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Email untuk reset password dan komunikasi</small>
                             </div>
@@ -77,6 +76,9 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah password</small>
                             </div>
@@ -89,6 +91,9 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -131,6 +136,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="first_name" name="first_name"
                                         value="{{ old('first_name', $user->personal?->first_name) }}" required>
+                                    @error('first_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -138,6 +146,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="last_name" name="last_name"
                                         value="{{ old('last_name', $user->personal?->last_name) }}" required>
+                                    @error('last_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -148,6 +159,9 @@
                                         <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                         <input type="text" class="form-control" id="phone" name="phone"
                                             value="{{ old('phone', $user->personal?->phone) }}">
+                                        @error('phone')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -157,6 +171,9 @@
                                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                                         <input type="date" class="form-control" id="birth_date" name="birth_date"
                                             value="{{ old('birth_date', $user->personal?->birth_date?->format('Y-m-d')) }}">
+                                        @error('birth_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -177,11 +194,17 @@
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea class="form-control" id="address" name="address" rows="3">{{ old('address', $user->personal?->address) }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="medical_history" class="form-label">Riwayat Medis</label>
                                 <textarea class="form-control" id="medical_history" name="medical_history" rows="3">{{ old('medical_history', $user->personal?->medical_history) }}</textarea>
+                                @error('medical_history')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="d-grid">

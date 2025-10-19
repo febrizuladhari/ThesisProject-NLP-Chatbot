@@ -32,12 +32,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'log.activity'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Profile Completion Routes (tidak menggunakan middleware profile.completed)
+    // Profile Completion Routes
     Route::get('/complete-profile', [ProfileController::class, 'showCompleteForm'])->name('profile.complete');
     Route::post('/complete-profile', [ProfileController::class, 'complete']);
 
-    // Admin Routes (Admin tidak perlu complete profile)
+    // Admin Routes
     Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
 
         // Admin Profile Management
@@ -59,12 +60,13 @@ Route::middleware(['auth', 'log.activity'])->group(function () {
         Route::delete('/logs/{log}', [LogController::class, 'destroy'])->name('logs.destroy');
         Route::post('/logs/clear-all', [LogController::class, 'clearAll'])->name('logs.clear-all');
         Route::post('/logs/clear-old', [LogController::class, 'clearOld'])->name('logs.clear-old');
-        Route::post('/logs/bulk-destroy', [\App\Http\Controllers\Admin\LogController::class, 'bulkDestroy'])->name('logs.bulk-destroy');
+        Route::post('/logs/bulk-destroy', [LogController::class, 'bulkDestroy'])->name('logs.bulk-destroy');
 
     });
 
-    // User Routes (Hanya untuk user dengan completed profile)
+    // User Routes
     Route::middleware(['profile.completed'])->group(function () {
+
         Route::get('/dashboard', [UserDashboard::class, 'index'])->name('dashboard');
 
         // Profile

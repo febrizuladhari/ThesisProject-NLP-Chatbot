@@ -15,15 +15,8 @@
                             <i class="bi bi-info-circle"></i> Silakan lengkapi data profile Anda untuk melanjutkan.
                         </div>
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        <!-- Validation Errors Alert -->
+                        <x-validation-errors />
 
                         <form method="POST" action="{{ route('profile.complete') }}">
                             @csrf
@@ -34,6 +27,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="first_name" name="first_name"
                                         value="{{ old('first_name') }}" required>
+                                    @error('first_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -41,6 +37,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="last_name" name="last_name"
                                         value="{{ old('last_name') }}" required>
+                                    @error('last_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -49,12 +48,18 @@
                                     <label for="phone" class="form-label">No. Telepon</label>
                                     <input type="text" class="form-control" id="phone" name="phone"
                                         value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="birth_date" class="form-label">Tanggal Lahir</label>
                                     <input type="date" class="form-control" id="birth_date" name="birth_date"
                                         value="{{ old('birth_date') }}">
+                                    @error('birth_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -72,12 +77,18 @@
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea class="form-control" id="address" name="address" rows="3">{{ old('address') }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="medical_history" class="form-label">Riwayat Medis</label>
                                 <textarea class="form-control" id="medical_history" name="medical_history" rows="3"
                                     placeholder="Tuliskan riwayat penyakit atau kondisi medis Anda (opsional)">{{ old('medical_history') }}</textarea>
+                                @error('medical_history')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="d-grid">

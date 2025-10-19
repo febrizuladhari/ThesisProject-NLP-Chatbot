@@ -23,16 +23,8 @@
             </div>
         @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <i class="bi bi-exclamation-triangle"></i> <strong>Terjadi kesalahan:</strong>
-                <ul class="mb-0 mt-2">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <!-- Validation Errors Alert -->
+        <x-validation-errors />
 
         <div class="row">
             <div class="col-lg-8">
@@ -59,6 +51,9 @@
                                     <input type="text" class="form-control @error('username') is-invalid @enderror"
                                         id="username" name="username" value="{{ old('username', $admin->username) }}"
                                         required>
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Username yang digunakan untuk login</small>
                             </div>
@@ -69,6 +64,9 @@
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                         id="email" name="email" value="{{ old('email', $admin->email) }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Email untuk notifikasi sistem</small>
                             </div>
@@ -100,6 +98,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="first_name" name="first_name"
                                         value="{{ old('first_name', $admin->personal?->first_name) }}" required>
+                                    @error('first_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -107,6 +108,9 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="last_name" name="last_name"
                                         value="{{ old('last_name', $admin->personal?->last_name) }}" required>
+                                    @error('last_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -117,6 +121,9 @@
                                         <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                         <input type="text" class="form-control" id="phone" name="phone"
                                             value="{{ old('phone', $admin->personal?->phone) }}">
+                                        @error('phone')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -126,6 +133,9 @@
                                         <span class="input-group-text"><i class="bi bi-calendar"></i></span>
                                         <input type="date" class="form-control" id="birth_date" name="birth_date"
                                             value="{{ old('birth_date', $admin->personal?->birth_date?->format('Y-m-d')) }}">
+                                        @error('birth_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -149,6 +159,9 @@
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea class="form-control" id="address" name="address" rows="3">{{ old('address', $admin->personal?->address) }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="d-grid">
@@ -172,8 +185,7 @@
                             @csrf
 
                             <div class="alert alert-warning">
-                                <i class="bi bi-exclamation-triangle"></i> Untuk keamanan, pastikan password baru Anda
-                                cukup kuat.
+                                <i class="bi bi-exclamation-triangle"></i> Untuk keamanan, pastikan password baru Anda kuat.
                             </div>
 
                             <div class="mb-3">
@@ -186,6 +198,9 @@
                                         id="current_password" name="current_password" required>
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="current_password" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
+                                    @error('current_password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                     </button>
                                 </div>
                             </div>
@@ -200,6 +215,9 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-1">Minimal 8 karakter</small>
                             </div>
@@ -214,6 +232,9 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation" title="Tampilkan password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

@@ -15,15 +15,8 @@
             </div>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <!-- Validation Errors Alert -->
+        <x-validation-errors />
 
         <div class="card shadow-sm">
             <div class="card-body p-4">
@@ -32,27 +25,35 @@
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            value="{{ old('username') }}" required>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+                        @error('username')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
-                            required>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         <small class="text-muted">Minimal 8 karakter</small>
                     </div>
 
                     <div class="mb-3">
-                        <label for="password_confirmation" class="form-label">Konfirmasi Password <span
-                                class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-                            required>
+                        <label for="password_confirmation" class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        @error('password_confirmation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="d-grid">

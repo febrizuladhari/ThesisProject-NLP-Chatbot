@@ -22,15 +22,8 @@
             </div>
         @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <!-- Validation Errors Alert -->
+        <x-validation-errors />
 
         <div class="row">
             <div class="col-md-8">
@@ -55,9 +48,11 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="current_password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('current_password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <small class="text-muted d-block mt-2">Masukkan password Anda saat ini untuk
-                                    verifikasi</small>
+                                <small class="text-muted d-block mt-2">Masukkan password Anda saat ini untuk verifikasi</small>
                             </div>
 
                             <hr>
@@ -72,9 +67,11 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <small class="text-muted d-block mt-2">Minimal 8 karakter. Gunakan kombinasi huruf besar,
-                                    huruf kecil, angka, dan simbol untuk keamanan maksimal.</small>
+                                <small class="text-muted d-block mt-2">Minimal 8 karakter. Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol untuk keamanan maksimal.</small>
                             </div>
 
                             <div class="mb-3">
@@ -88,6 +85,9 @@
                                     <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation">
                                         <i class="bi bi-eye"></i>
                                     </button>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <small class="text-muted d-block mt-2">Ketikkan ulang password baru yang sama</small>
                             </div>
