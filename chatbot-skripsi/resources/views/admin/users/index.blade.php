@@ -60,17 +60,12 @@
                                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" title="Hapus"
-                                                onclick="return confirm('Yakin ingin menghapus user ini?')">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser{{ $user->id }}" title="Hapus">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </button>
                                     </td>
                                 </tr>
+
                             @empty
                                 <tr>
                                     <td colspan="6" class="text-center">Belum ada user terdaftar</td>
@@ -86,4 +81,75 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal Delete User -->
+    @foreach ($users as $user)
+        <div class="modal fade" id="deleteUser{{ $user->id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">
+                            <i class="bi bi-exclamation-triangle"></i> Konfirmasi Hapus User
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            <i class="bi bi-info-circle"></i> Anda akan menghapus user dengan detail berikut:
+                        </div>
+
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td width="120" class="fw-bold">User ID</td>
+                                <td>: <code>#{{ $user->id }}</code></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">User</td>
+                                <td>: {{ $user->username }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Email</td>
+                                <td>: {{ $user->email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Nama</td>
+                                <td>: {{ $user->personal->first_name }} {{ $user->personal->last_name }} </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">No. Telepon</td>
+                                <td>: {{ $user->personal->last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Tanggal Lahir</td>
+                                <td>: {{ $user->personal->last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Bergabung</td>
+                                <td>: {{ $user->created_at }}</td>
+                            </tr>
+                        </table>
+
+                        <p class="text-danger mb-0 mt-3">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <strong>Tindakan ini tidak dapat dibatalkan!</strong>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i> Batal
+                        </button>
+                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Ya, Hapus User Ini
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 @endsection
