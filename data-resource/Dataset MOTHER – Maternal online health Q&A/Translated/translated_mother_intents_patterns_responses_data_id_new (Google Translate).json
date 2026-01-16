@@ -2018,9 +2018,9 @@
     },
     {
       "tag": "jantung pembuluh darah paru-paru, kehamilan",
-      "context_set": "Changes in the cardiovascular and respiratory system during pregnancy.",
+      "context_set": "Perubahan pada sistem kardiovaskular dan pernapasan selama kehamilan.",
       "patterns": [
-        "How do pregnancy-related changes affect the heart, blood vessels, and lungs?"
+        "Perubahan pada sistem kardiovaskular dan pernapasan selama kehamilan."
       ],
       "responses": [
         "Selama kehamilan, detak jantung Anda mungkin meningkat hingga 10 detak per menit, dan jantung Anda sedikit bergeser di dalam tulang rusuk untuk mengakomodasi bayi yang sedang tumbuh dan rahim yang membesar. Volume darah Anda meningkat untuk memenuhi kebutuhan janin. Kehamilan juga dapat memengaruhi pernapasan Anda, menyebabkan sesak napas ringan, yang biasanya dimulai secara bertahap dan tetap ringan. Hal ini disebabkan adanya perubahan fisik yang terjadi pada tubuh Anda untuk menunjang kehamilan."

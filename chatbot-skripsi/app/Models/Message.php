@@ -24,4 +24,8 @@ class Message extends Model
     {
         return $this->hasOne(Feedback::class);
     }
+
+        protected $casts = [
+        'sender' => 'string'
+    ];
 }

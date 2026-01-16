@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ChatController;
+use App\Http\Controllers\User\FeedbackController;
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -82,5 +83,8 @@ Route::middleware(['auth', 'log.activity'])->group(function () {
         Route::get('/chat/{chat}', [ChatController::class, 'show'])->name('chat.show');
         Route::post('/chat/{chat}/message', [ChatController::class, 'sendMessage'])->name('chat.message');
         Route::delete('/chat/{chat}', [ChatController::class, 'destroy'])->name('chat.destroy');
+
+        // Feedback
+        Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
     });
 });

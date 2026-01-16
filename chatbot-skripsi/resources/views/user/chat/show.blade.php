@@ -1,4 +1,4 @@
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Chat - ' . $chat->title)
 
@@ -70,6 +70,64 @@
             animation-delay: -0.9s;
         }
 
+        .feedback-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: none;
+        }
+
+        .message.bot:hover .feedback-btn {
+            display: inline-block;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background-color: #0d6efd;
+            color: white;
+            text-align: left;
+        }
+
+        .message.bot .message-content {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+        }
+
+        .feedback-btn {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 12px;
+            padding: 2px 6px;
+            display: none;
+        }
+
+        .message.bot:hover .feedback-btn {
+            display: inline-block;
+        }
+
+
+
         @keyframes bounce {
 
             0%,
@@ -100,13 +158,36 @@
 
         <div class="card shadow-sm chat-container">
             <div class="chat-messages" id="chatMessages">
-                @foreach ($messages as $message)
-                    <div class="message {{ $message->sender }}">
+            @foreach ($messages as $message)
+
+                {{-- USER MESSAGE --}}
+                @if ($message->sender === 'user')
+                    <div class="message user">
                         <div class="message-content">
                             {{ $message->qa_message }}
                         </div>
                     </div>
-                @endforeach
+                @endif
+
+                {{-- BOT MESSAGE --}}
+                @if ($message->sender === 'bot')
+                    <div class="message bot" data-message-id="{{ $message->id }}">
+                        <div class="message-content position-relative">
+                            {{ $message->qa_message }}
+
+                            {{-- FEEDBACK BUTTON (BOT ONLY) --}}
+                            <button
+                                class="btn btn-sm btn-light feedback-btn"
+                                data-message-id="{{ $message->id }}"
+                                title="Beri feedback"
+                            >
+                                ⭐
+                            </button>
+                        </div>
+                    </div>
+                @endif
+
+            @endforeach
                 <div class="typing-indicator" id="typingIndicator">
                     <span></span>
                     <span></span>
@@ -127,11 +208,46 @@
                 </form>
             </div>
         </div>
+
+        {{-- Feedback Modal --}}
+        <div class="modal fade" id="feedbackModal" tabindex="-1">
+            <div class="modal-dialog">
+                <form id="feedbackForm" class="modal-content">
+                    @csrf
+                    <input type="hidden" id="feedbackMessageId">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Feedback Jawaban Bot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <label>Rating</label>
+                        <select class="form-select" id="rating">
+                            <option value="5">⭐⭐⭐⭐⭐ Sangat membantu</option>
+                            <option value="4">⭐⭐⭐⭐</option>
+                            <option value="3">⭐⭐⭐</option>
+                            <option value="2">⭐⭐</option>
+                            <option value="1">⭐ Tidak membantu</option>
+                        </select>
+
+                        <label class="mt-2">Komentar</label>
+                        <textarea class="form-control" id="comment"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Kirim Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 @endsection
 
 @push('scripts')
     <script>
+
         $(document).ready(function() {
             const chatMessages = $('#chatMessages');
             const chatForm = $('#chatForm');
@@ -209,5 +325,31 @@
                 });
             });
         });
+
+        $(document).on('click', '.feedback-btn', function () {
+            $('#feedbackMessageId').val($(this).data('message-id'));
+            $('#feedbackModal').modal('show');
+        });
+
+        $('#feedbackForm').on('submit', function (e) {
+            e.preventDefault();
+
+            $.post('{{ route('feedback.store') }}', {
+                _token: '{{ csrf_token() }}',
+                message_id: $('#feedbackMessageId').val(),
+                rating: $('#rating').val(),
+                comment: $('#comment').val()
+            }, function () {
+                $('#feedbackModal').modal('hide');
+                alert('Feedback tersimpan');
+            });
+        });
+
+        $(document).on('click', '.feedback-btn', function () {
+            $('#feedbackMessageId').val($(this).data('message-id'));
+            $('#feedbackModal').modal('show');
+        });
+
+
     </script>
-@endpush --}}
+@endpush
